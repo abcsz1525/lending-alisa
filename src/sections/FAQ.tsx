@@ -7,28 +7,24 @@ gsap.registerPlugin(ScrollTrigger);
 
 const faqs = [
   {
-    question: 'Нужны ли специальные знания для прохождения курса?',
-    answer: 'Нет, курс рассчитан на начинающих. Всё объясняется с нуля, главное — ваше желание учиться. Базовое понимание дизайна интерьера будет плюсом, но не обязательно.',
+    question: 'Нужны ли специальные знания для участия?',
+    answer: 'Нет, мастер-класс рассчитан на тех, кто уже работает в хоумстейджинге или дизайне интерьера. Базовое понимание пространства приветствуется — всё остальное объясним с нуля.',
   },
   {
-    question: 'Будет ли запись, если я не смогу присутствовать онлайн?',
-    answer: 'Да, все участники получают доступ к записи мастер-класса на 3 месяца (6 месяцев для тарифа VIP). Запись будет доступна в личном кабинете сразу после окончания эфира.',
+    question: 'Что нужно взять с собой?',
+    answer: 'Ноутбук с предустановленной программой проектирования. Ссылку на нужный софт и инструкцию по установке получите перед мастер-классом.',
   },
   {
-    question: 'Какой софт понадобится?',
-    answer: 'Для практики достаточно бумаги и карандаша. Дополнительно покажем работу в бесплатных программах. Если у вас есть SketchUp или AutoCAD — отлично, но это не обязательно.',
+    question: 'Где проходит мастер-класс?',
+    answer: 'Офлайн, в Москве — БЦ Технопарк плаза. Точный адрес и схема проезда будут отправлены зарегистрированным участникам.',
   },
   {
-    question: 'Выдается ли сертификат?',
-    answer: 'Да, сертификат выдается для тарифов Стандарт и VIP после выполнения практических заданий. Сертификат подтверждает прохождение курса и может быть указан в портфолио.',
+    question: 'Что я получу по итогу?',
+    answer: 'Практические знания: как выбирать мебельщика, составлять проект для просчёта, разбираться в материалах и фурнитуре, проектировать с учётом эргономики. Плюс — библиотеку элементов для программы.',
   },
   {
     question: 'Можно ли вернуть деньги?',
-    answer: 'Да, в течение 7 дней после старта курса, если вы поняли, что курс вам не подходит. Просто напишите нам на hello@furnituredesignpro.ru — вернём деньги без лишних вопросов.',
-  },
-  {
-    question: 'Как долго будет доступ к материалам?',
-    answer: '3 месяца для тарифов Базовый и Стандарт, 6 месяцев для VIP. После этого срока доступ можно продлить за небольшую плату или перейти на подписку.',
+    answer: 'Свяжитесь с нами через мессенджер — обсудим индивидуально. Напишите в Telegram или WhatsApp.',
   },
 ];
 
@@ -38,46 +34,31 @@ export function FAQ() {
   const faqsRef = useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const toggleFaq = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(titleRef.current,
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 28 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-          scrollTrigger: { trigger: titleRef.current, start: 'top 82%', toggleActions: 'play none none none' } }
+          scrollTrigger: { trigger: titleRef.current, start: 'top 85%', toggleActions: 'play none none none' } }
       );
       gsap.fromTo(faqsRef.current?.children || [],
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out',
-          scrollTrigger: { trigger: faqsRef.current, start: 'top 78%', toggleActions: 'play none none none' } }
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.45, stagger: 0.07, ease: 'power3.out',
+          scrollTrigger: { trigger: faqsRef.current, start: 'top 80%', toggleActions: 'play none none none' } }
       );
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-24 lg:py-36 relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #080810 0%, #0D0D18 100%)' }}
-    >
-      {/* Subtle glow */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse, rgba(155,110,202,0.05) 0%, transparent 70%)',
-          filter: 'blur(50px)',
-        }}
-      />
+    <section id="faq" ref={sectionRef}
+      className="py-20 lg:py-32"
+      style={{ background: 'linear-gradient(180deg, #353330 0%, #3E3C39 100%)' }}>
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
-        <div ref={titleRef} className="text-center mb-14">
-          <p className="font-accent text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#C9A96E' }}>
+        <div ref={titleRef} className="text-center mb-10 lg:mb-12">
+          <p className="font-accent text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#D4A96A' }}>
             FAQ
           </p>
           <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-tight">
@@ -85,48 +66,37 @@ export function FAQ() {
           </h2>
         </div>
 
-        {/* FAQ Items */}
-        <div ref={faqsRef} className="space-y-3">
+        {/* Items */}
+        <div ref={faqsRef} className="space-y-2.5">
           {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="rounded-2xl overflow-hidden transition-all duration-300"
+            <div key={index}
+              className="rounded-2xl overflow-hidden"
               style={{
-                background: openIndex === index ? 'rgba(201,169,110,0.05)' : 'rgba(255,255,255,0.025)',
-                border: `1px solid ${openIndex === index ? 'rgba(201,169,110,0.2)' : 'rgba(255,255,255,0.07)'}`,
-                boxShadow: openIndex === index ? '0 4px 24px rgba(0,0,0,0.3)' : 'none',
-              }}
-            >
+                background: openIndex === index ? 'rgba(212,169,106,0.07)' : 'rgba(255,255,255,0.05)',
+                border: `1px solid ${openIndex === index ? 'rgba(212,169,106,0.25)' : 'rgba(255,255,255,0.09)'}`,
+                transition: 'all 0.25s ease',
+              }}>
+
               <button
-                onClick={() => toggleFaq(index)}
-                className="w-full px-6 py-5 flex items-center justify-between text-left transition-colors duration-200"
-              >
-                <span
-                  className="font-medium pr-4 font-body text-sm leading-relaxed"
-                  style={{ color: openIndex === index ? '#fff' : 'rgba(255,255,255,0.75)' }}
-                >
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between text-left gap-4">
+                <span className="font-body text-sm sm:text-base leading-relaxed"
+                  style={{ color: openIndex === index ? '#fff' : 'rgba(255,255,255,0.75)' }}>
                   {faq.question}
                 </span>
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
-                  style={
-                    openIndex === index
-                      ? { background: 'rgba(201,169,110,0.20)', border: '1px solid rgba(201,169,110,0.35)' }
-                      : { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)' }
-                  }
-                >
-                  {openIndex === index ? (
-                    <Minus className="w-3.5 h-3.5" style={{ color: '#C9A96E' }} />
-                  ) : (
-                    <Plus className="w-3.5 h-3.5" style={{ color: 'rgba(255,255,255,0.5)' }} />
-                  )}
+                <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={openIndex === index
+                    ? { background: 'rgba(212,169,106,0.18)', border: '1px solid rgba(212,169,106,0.35)' }
+                    : { background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}>
+                  {openIndex === index
+                    ? <Minus className="w-3 h-3" style={{ color: '#D4A96A' }} />
+                    : <Plus className="w-3 h-3 text-white/50" />}
                 </div>
               </button>
-              <div
-                className="overflow-hidden transition-all duration-300"
-                style={{ maxHeight: openIndex === index ? '200px' : '0px', opacity: openIndex === index ? 1 : 0 }}
-              >
-                <p className="px-6 pb-5 text-sm text-white/50 leading-relaxed font-body">
+
+              <div className="overflow-hidden transition-all duration-300"
+                style={{ maxHeight: openIndex === index ? '200px' : '0', opacity: openIndex === index ? 1 : 0 }}>
+                <p className="px-5 sm:px-6 pb-5 text-sm text-white/55 leading-relaxed font-body">
                   {faq.answer}
                 </p>
               </div>

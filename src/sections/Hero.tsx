@@ -1,6 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { Clock, BookOpen, Award, ChevronDown, Sparkles } from 'lucide-react';
+import { Calendar, Clock, MapPin, ChevronDown } from 'lucide-react';
 import gsap from 'gsap';
+import { MessengerButtons } from '../components/MessengerButtons';
+
+// Concrete palette
+const BG = '#3E3C39';
+const BG_DARK = '#2A2825';
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -9,272 +14,143 @@ export function Hero() {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
-  const trustBadgesRef = useRef<HTMLDivElement>(null);
+  const metaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      tl.fromTo(badgeRef.current,
-        { opacity: 0, y: 24, scale: 0.9 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.7 }
-      )
-      .fromTo(titleRef.current,
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 0.9 },
-        '-=0.4'
-      )
-      .fromTo(subtitleRef.current,
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.7 },
-        '-=0.5'
-      )
-      .fromTo(buttonsRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6 },
-        '-=0.4'
-      )
-      .fromTo(imageRef.current,
-        { opacity: 0, scale: 0.93, x: 30 },
-        { opacity: 1, scale: 1, x: 0, duration: 1.0 },
-        '-=0.7'
-      )
-      .fromTo(trustBadgesRef.current?.children || [],
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
-        '-=0.5'
-      );
+      tl.fromTo(badgeRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 })
+        .fromTo(titleRef.current, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.85 }, '-=0.35')
+        .fromTo(subtitleRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.65 }, '-=0.45')
+        .fromTo(buttonsRef.current, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55 }, '-=0.4')
+        .fromTo(metaRef.current?.children || [], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.08 }, '-=0.35')
+        .fromTo(imageRef.current, { opacity: 0, scale: 0.94, x: 24 }, { opacity: 1, scale: 1, x: 0, duration: 0.9 }, '-=0.8');
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
+  const scrollTo = (href: string) => {
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden pt-[72px]"
-      style={{
-        background: 'radial-gradient(ellipse 100% 80% at 50% -20%, rgba(155, 110, 202, 0.20) 0%, transparent 65%), radial-gradient(ellipse 70% 50% at 90% 60%, rgba(201, 169, 110, 0.10) 0%, transparent 55%), #080810',
-      }}
+      className="relative min-h-screen overflow-hidden pt-16 lg:pt-[72px]"
+      style={{ background: `radial-gradient(ellipse 120% 70% at 60% 0%, rgba(255,255,255,0.04) 0%, transparent 55%), ${BG_DARK}` }}
     >
-      {/* Ambient glow orbs */}
-      <div
-        className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full pointer-events-none animate-glow-pulse"
+      {/* Subtle texture overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
-          background: 'radial-gradient(circle, rgba(155,110,202,0.12) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-          transform: 'translate(-50%, -30%)',
-        }}
-      />
-      <div
-        className="absolute top-1/3 right-0 w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(201,169,110,0.08) 0%, transparent 70%)',
-          filter: 'blur(40px)',
+          backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
         }}
       />
 
-      {/* Grid pattern overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.025]"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-          backgroundSize: '80px 80px',
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[calc(100vh-160px)]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[calc(100vh-120px)]">
 
           {/* Content */}
-          <div className="relative">
+          <div className="flex flex-col justify-center">
+
             {/* Badge */}
-            <div ref={badgeRef} className="mb-7">
-              <span
-                className="inline-flex items-center gap-2 font-accent text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full"
-                style={{
-                  background: 'rgba(201,169,110,0.10)',
-                  border: '1px solid rgba(201,169,110,0.25)',
-                  color: '#C9A96E',
-                }}
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                Онлайн-мастер-класс
+            <div ref={badgeRef} className="mb-6">
+              <span className="inline-flex items-center gap-2 font-accent text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full"
+                style={{ background: 'rgba(212,169,106,0.12)', border: '1px solid rgba(212,169,106,0.30)', color: '#D4A96A' }}>
+                Мастер-класс · 18 и 19 апреля
               </span>
             </div>
 
             {/* Title */}
-            <h1
-              ref={titleRef}
-              className="font-heading text-[42px] sm:text-5xl lg:text-[60px] font-bold leading-[1.10] mb-6"
-            >
-              <span className="text-white">Освой основы </span>
-              <span className="text-gradient">проектирования<br />мебели</span>
-              <span className="text-white"> за 2 дня</span>
+            <h1 ref={titleRef}
+              className="font-heading text-4xl sm:text-5xl lg:text-[58px] font-bold leading-[1.08] mb-5 text-white">
+              Освой основы{' '}
+              <span className="text-gradient">проектирования<br className="hidden sm:block" /> мебели</span>{' '}
+              за 2 дня
             </h1>
 
             {/* Subtitle */}
-            <p
-              ref={subtitleRef}
-              className="text-lg text-white/55 leading-relaxed mb-10 max-w-xl font-body"
-            >
-              Научитесь создавать функциональную и эстетичную мебель для
-              интерьеров. Практические навыки от профессионального дизайнера с
-              15-летним опытом.
+            <p ref={subtitleRef} className="text-base sm:text-lg text-white/65 leading-relaxed mb-8 max-w-lg font-body">
+              Практический мастер-класс от <strong className="text-white/85 font-semibold">TERRIA</strong> и хоумстейджера <strong className="text-white/85 font-semibold">Галины Гусаровой</strong> — для хоумстейджеров и дизайнеров интерьера
             </p>
 
-            {/* Buttons */}
-            <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 mb-12">
-              <button
-                onClick={() => scrollToSection('#pricing')}
-                className="font-accent font-semibold px-8 py-4 rounded-xl text-base text-white transition-all duration-300 animate-pulse-glow"
-                style={{
-                  background: 'linear-gradient(135deg, #E8943A, #C8641A)',
-                  boxShadow: '0 0 0 1px rgba(232,148,58,0.3)',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-2px)';
-                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 30px rgba(232,148,58,0.45), 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(232,148,58,0.5)';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)';
-                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 0 1px rgba(232,148,58,0.3)';
-                }}
-              >
-                Записаться на курс
-              </button>
-              <button
-                onClick={() => scrollToSection('#program')}
-                className="font-accent font-semibold px-8 py-4 rounded-xl text-base transition-all duration-300"
-                style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  color: 'rgba(255,255,255,0.75)',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.07)';
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(201,169,110,0.4)';
-                  (e.currentTarget as HTMLButtonElement).style.color = '#fff';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.04)';
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.12)';
-                  (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.75)';
-                }}
-              >
-                Смотреть программу
-              </button>
+            {/* Price + CTA */}
+            <div ref={buttonsRef} className="mb-8">
+              <div className="flex flex-wrap items-center gap-4 mb-5">
+                <div className="flex items-baseline gap-1">
+                  <span className="font-heading text-4xl font-bold text-white">15 000</span>
+                  <span className="font-heading text-xl text-white/50">₽</span>
+                </div>
+                <span className="text-white/40 text-sm font-body">· за двухдневный курс</span>
+              </div>
+              <MessengerButtons size="large" />
+              <p className="mt-4 flex items-center gap-2 text-white/45 text-sm font-accent">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-400/70 animate-pulse" />
+                Количество мест ограничено
+              </p>
             </div>
 
-            {/* Trust badges */}
-            <div ref={trustBadgesRef} className="flex flex-wrap gap-3">
+            {/* Meta badges */}
+            <div ref={metaRef} className="flex flex-wrap gap-2.5">
               {[
-                { icon: Clock, label: '2 дня обучения' },
-                { icon: BookOpen, label: 'Практические задания' },
-                { icon: Award, label: 'Сертификат' },
+                { icon: Calendar, label: '18–19 апреля' },
+                { icon: Clock, label: '3 часа в день' },
+                { icon: MapPin, label: 'БЦ Технопарк плаза' },
               ].map(({ icon: Icon, label }) => (
-                <div
-                  key={label}
-                  className="flex items-center gap-2.5 px-4 py-2.5 rounded-full"
-                  style={{
-                    background: 'rgba(255,255,255,0.04)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                  }}
-                >
-                  <Icon className="w-4 h-4" style={{ color: '#C9A96E' }} />
-                  <span className="text-sm font-medium text-white/70">{label}</span>
+                <div key={label}
+                  className="flex items-center gap-2 px-3.5 py-2 rounded-full"
+                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)' }}>
+                  <Icon className="w-3.5 h-3.5 text-[#D4A96A]" />
+                  <span className="text-xs font-medium text-white/70">{label}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Image */}
-          <div ref={imageRef} className="relative">
-            {/* Glow behind image */}
-            <div
-              className="absolute inset-0 rounded-2xl pointer-events-none"
-              style={{
-                background: 'radial-gradient(circle at 50% 50%, rgba(201,169,110,0.15) 0%, transparent 70%)',
-                filter: 'blur(30px)',
-                transform: 'scale(1.1)',
-              }}
-            />
-
-            <div
-              className="relative rounded-2xl overflow-hidden"
-              style={{
-                boxShadow: '0 0 0 1px rgba(255,255,255,0.08), 0 24px 80px rgba(0,0,0,0.7)',
-              }}
-            >
-              <img
-                src="/hero-workspace.jpg"
-                alt="Дизайн студия"
-                className="w-full h-auto object-cover"
-              />
-              {/* Dark overlay */}
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(8,8,16,0.5) 0%, transparent 50%)' }} />
+          <div ref={imageRef} className="relative hidden sm:block">
+            <div className="relative rounded-2xl overflow-hidden"
+              style={{ boxShadow: '0 0 0 1px rgba(255,255,255,0.08), 0 32px 80px rgba(0,0,0,0.5)' }}>
+              <img src="/hero-workspace.jpg" alt="Мастер-класс по проектированию мебели"
+                className="w-full h-auto object-cover" />
+              <div className="absolute inset-0"
+                style={{ background: 'linear-gradient(to top, rgba(30,28,26,0.7) 0%, transparent 55%)' }} />
             </div>
 
-            {/* Floating stats card */}
-            <div
-              className="absolute -bottom-5 -left-5 px-5 py-4 rounded-2xl animate-float"
+            {/* Floating card */}
+            <div className="absolute -bottom-4 -left-4 px-5 py-4 rounded-2xl animate-float"
               style={{
-                background: 'rgba(12,12,20,0.9)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(201,169,110,0.2)',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
-              }}
-            >
+                background: 'rgba(28,27,25,0.92)',
+                backdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255,255,255,0.10)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              }}>
               <div className="flex items-center gap-3">
-                <div
-                  className="w-11 h-11 rounded-full flex items-center justify-center"
-                  style={{ background: 'rgba(201,169,110,0.15)' }}
-                >
-                  <Award className="w-5 h-5" style={{ color: '#C9A96E' }} />
+                <div className="w-10 h-10 rounded-full flex items-center justify-center"
+                  style={{ background: 'rgba(212,169,106,0.15)' }}>
+                  <Calendar className="w-4.5 h-4.5" style={{ color: '#D4A96A', width: 18, height: 18 }} />
                 </div>
                 <div>
-                  <p className="font-heading font-bold text-white text-lg">500+</p>
-                  <p className="text-xs text-white/50 font-accent">выпускников</p>
+                  <p className="font-heading font-bold text-white text-sm">18–19 апреля</p>
+                  <p className="text-xs text-white/50 font-accent">2 дня · 3 ч/день</p>
                 </div>
               </div>
             </div>
-
-            {/* Decorative corner accent */}
-            <div
-              className="absolute -top-3 -right-3 w-24 h-24 rounded-2xl pointer-events-none opacity-40"
-              style={{
-                background: 'linear-gradient(135deg, rgba(155,110,202,0.5), transparent)',
-                filter: 'blur(12px)',
-              }}
-            />
           </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-subtle z-10">
-        <button
-          onClick={() => scrollToSection('#about')}
-          className="flex flex-col items-center gap-1.5 transition-all duration-300 group"
-          style={{ color: 'rgba(255,255,255,0.35)' }}
-          onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.color = '#C9A96E'}
-          onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,255,255,0.35)'}
-        >
-          <span className="text-[11px] font-accent tracking-widest uppercase">Листайте вниз</span>
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce-subtle z-10">
+        <button onClick={() => scrollTo('#for-whom')}
+          className="flex flex-col items-center gap-1 text-white/30 hover:text-white/60 transition-colors duration-300">
+          <span className="text-[10px] font-accent tracking-widest uppercase">Листайте</span>
           <ChevronDown className="w-4 h-4" />
         </button>
       </div>
 
-      {/* Bottom gradient fade */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, #080810)' }}
-      />
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+        style={{ background: `linear-gradient(to bottom, transparent, ${BG})` }} />
     </section>
   );
 }

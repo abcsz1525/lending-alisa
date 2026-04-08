@@ -13,7 +13,24 @@
       "Bash(node -e \"const fs=require\\('fs'\\); const p='C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\admin\\\\\\\\\\\\\\\\Desktop\\\\\\\\\\\\\\\\лендос\\\\\\\\\\\\\\\\node_modules\\\\\\\\\\\\\\\\.bin'; try{console.log\\(fs.readdirSync\\(p\\).filter\\(f=>f.includes\\('vite'\\)\\)\\)}catch\\(e\\){console.log\\('err:',e.message\\)}\")",
       "Bash(node -e ':*)",
       "Bash(npm install:*)",
-      "Bash(node node_modules/vite/bin/vite.js --port 5173 --host)"
+      "Bash(node node_modules/vite/bin/vite.js --port 5173 --host)",
+      "Bash(chmod +x /Users/andybrandycandy/Desktop/лендос/node_modules/.bin/vite)",
+      "Bash(npx tsc:*)",
+      "Bash(sed -i '' \"s/style={{ backgroundColor: '#080810' }}/style={{ backgroundColor: '#B85D25' }}/g\" src/sections/ForWhom.tsx)",
+      "Bash(sed -i '' \"s/background: 'rgba\\(255,255,255,0.025\\)'/background: 'rgba\\(0,0,0,0.15\\)'/g\" src/sections/ForWhom.tsx)",
+      "Bash(sed -i '' \"s/border: '1px solid rgba\\(255,255,255,0.07\\)'/border: '1px solid rgba\\(255,255,255,0.18\\)'/g\" src/sections/ForWhom.tsx)",
+      "Bash(sed -i '' \"s/background: 'linear-gradient\\(180deg, #080810 0%, #0D0D18 50%, #080810 100%\\)'/background: 'linear-gradient\\(180deg, #B85D25 0%, #A85220 50%, #B85D25 100%\\)'/g\" src/sections/Program.tsx)",
+      "Bash(sed -i '' \"s/background: 'rgba\\(255,255,255,0.025\\)'/background: 'rgba\\(0,0,0,0.15\\)'/g\" src/sections/Program.tsx)",
+      "Bash(sed -i '' \"s/background: 'linear-gradient\\(180deg, #080810 0%, #0D0D18 100%\\)'/background: 'linear-gradient\\(180deg, #A85220 0%, #B85D25 100%\\)'/g\" src/sections/Instructor.tsx)",
+      "Bash(sed -i '' \"s/background: 'rgba\\(255,255,255,0.025\\)'/background: 'rgba\\(0,0,0,0.15\\)'/g\" src/sections/Instructor.tsx)",
+      "Bash(sed -i '' \"s/border: '1px solid rgba\\(255,255,255,0.08\\)'/border: '1px solid rgba\\(255,255,255,0.18\\)'/g\" src/sections/Instructor.tsx)",
+      "Bash(sed -i '' \"s/boxShadow: '0 4px 40px rgba\\(0,0,0,0.4\\)'/boxShadow: '0 4px 24px rgba\\(0,0,0,0.25\\)'/g\" src/sections/Instructor.tsx)",
+      "Bash(sed -i '' \"s/style={{ backgroundColor: '#080810' }}/style={{ backgroundColor: '#B85D25' }}/g\" src/sections/CTA.tsx)",
+      "Bash(sed -i '' \"s/style={{ background: '#050508' }}/style={{ background: '#8B3F10' }}/g\" src/sections/Footer.tsx)",
+      "Bash(sed -i '' \"s/background: 'linear-gradient\\(180deg, #080810 0%, #0D0D18 100%\\)'/background: 'linear-gradient\\(180deg, #B85D25 0%, #A85220 100%\\)'/g\" src/sections/FAQ.tsx)",
+      "Bash(sed -i '' \"s/background: 'linear-gradient\\(180deg, #0D0D18 0%, #080810 100%\\)'/background: 'linear-gradient\\(180deg, #A85220 0%, #B85D25 100%\\)'/g\" src/sections/Testimonials.tsx)",
+      "Bash(sed -i '' \"s/background: 'rgba\\(255,255,255,0.025\\)'/background: 'rgba\\(0,0,0,0.15\\)'/g\" src/sections/FAQ.tsx src/sections/Testimonials.tsx)",
+      "Bash(sed -i '' \"s/border: '1px solid rgba\\(255,255,255,0.07\\)'/border: '1px solid rgba\\(255,255,255,0.18\\)'/g\" src/sections/FAQ.tsx src/sections/Testimonials.tsx)"
     ]
   }
 }

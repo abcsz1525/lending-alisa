@@ -1,192 +1,122 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Award, BookOpen, Star, Instagram, Youtube } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const credentials = [
-  { icon: BookOpen, text: 'Образование: МГХПА им. Строганова' },
-  { icon: Award, text: 'Член Союза дизайнеров России' },
-  { icon: Star, text: 'Публикации в AD, ELLE DECORATION, INMYROOM' },
+const organizers = [
+  {
+    name: 'Команда TERRIA',
+    role: 'Производство мебели с 2014 года',
+    colorLine: '#D4A96A',
+    facts: [
+      'Опыт в производстве мебели с 2014 года',
+      'Знание каждого этапа производства изнутри',
+      '20+ успешных учеников, начавших с нуля',
+      'Выход учеников на доход от 300 000 ₽',
+    ],
+  },
+  {
+    name: 'Галина Гусарова',
+    role: 'Хоумстейджер',
+    colorLine: '#A09890',
+    facts: [
+      'Признанный лидер рынка комплектации жилой недвижимости в Москве и Дубае',
+      '200+ успешных реализаций квартир под ключ',
+      'Призёр премии «Самый обсуждаемый рум тур года»',
+      'Призёр премии «Обзор года»',
+    ],
+  },
 ];
 
 export function Instructor() {
   const sectionRef = useRef<HTMLElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(imageRef.current,
-        { opacity: 0, scale: 0.94, x: -30 },
-        { opacity: 1, scale: 1, x: 0, duration: 0.9, ease: 'power3.out',
-          scrollTrigger: { trigger: imageRef.current, start: 'top 78%', toggleActions: 'play none none none' } }
+      gsap.fromTo(titleRef.current,
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+          scrollTrigger: { trigger: titleRef.current, start: 'top 85%', toggleActions: 'play none none none' } }
       );
-      gsap.fromTo(contentRef.current?.children || [],
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out',
-          scrollTrigger: { trigger: contentRef.current, start: 'top 78%', toggleActions: 'play none none none' } }
+      gsap.fromTo(cardsRef.current?.children || [],
+        { opacity: 0, y: 36, scale: 0.98 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.65, stagger: 0.18, ease: 'power3.out',
+          scrollTrigger: { trigger: cardsRef.current, start: 'top 80%', toggleActions: 'play none none none' } }
       );
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-24 lg:py-36 relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #080810 0%, #0D0D18 100%)' }}
-    >
-      {/* Decorative background */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 80% 60% at 0% 50%, rgba(155,110,202,0.08) 0%, transparent 60%)',
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 60% 60% at 100% 50%, rgba(201,169,110,0.06) 0%, transparent 60%)',
-        }}
-      />
+    <section id="instructor" ref={sectionRef}
+      className="py-20 lg:py-32"
+      style={{ background: 'linear-gradient(180deg, #353330 0%, #3E3C39 100%)' }}>
 
-      {/* Grid pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.02]"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-      />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Title */}
+        <div ref={titleRef} className="text-center mb-12 lg:mb-14">
+          <p className="font-accent text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#D4A96A' }}>
+            Организаторы
+          </p>
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-tight">
+            Кто проводит <span className="text-gradient">мастер-класс</span>
+          </h2>
+        </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-          {/* Image */}
-          <div ref={imageRef} className="relative">
-            {/* Glow behind */}
-            <div
-              className="absolute inset-0 rounded-2xl pointer-events-none"
+        {/* Cards */}
+        <div ref={cardsRef} className="grid sm:grid-cols-2 gap-5 lg:gap-7">
+          {organizers.map((org) => (
+            <div key={org.name}
+              className="relative rounded-2xl p-7 lg:p-9 overflow-hidden"
               style={{
-                background: 'radial-gradient(circle at 50% 50%, rgba(155,110,202,0.20) 0%, transparent 70%)',
-                filter: 'blur(40px)',
-                transform: 'scale(1.15)',
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.09)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               }}
-            />
-
-            <div
-              className="relative rounded-2xl overflow-hidden"
-              style={{
-                boxShadow: '0 0 0 1px rgba(255,255,255,0.08), 0 32px 80px rgba(0,0,0,0.7)',
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLDivElement;
+                el.style.transform = 'translateY(-4px)';
+                el.style.boxShadow = '0 20px 50px rgba(0,0,0,0.35)';
               }}
-            >
-              <img
-                src="/instructor-portrait.jpg"
-                alt="Елена Воробьева"
-                className="w-full h-auto object-cover"
-              />
-              <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to top, rgba(8,8,16,0.6) 0%, transparent 50%)' }}
-              />
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLDivElement;
+                el.style.transform = 'translateY(0)';
+                el.style.boxShadow = 'none';
+              }}>
+
+              {/* Top accent line */}
+              <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl"
+                style={{ background: `linear-gradient(90deg, ${org.colorLine}, transparent)` }} />
+
+              {/* Avatar placeholder */}
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 font-heading font-bold text-2xl"
+                style={{ background: `${org.colorLine}18`, border: `1px solid ${org.colorLine}28`, color: org.colorLine }}>
+                {org.name.charAt(0)}
+              </div>
+
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-white mb-1">
+                {org.name}
+              </h3>
+              <p className="font-accent text-sm mb-5" style={{ color: org.colorLine }}>
+                {org.role}
+              </p>
+
+              <div className="h-px mb-5" style={{ background: 'rgba(255,255,255,0.07)' }} />
+
+              <ul className="space-y-3">
+                {org.facts.map((fact) => (
+                  <li key={fact} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: org.colorLine }} />
+                    <span className="text-sm text-white/65 font-body leading-relaxed">{fact}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            {/* Gold border accent */}
-            <div
-              className="absolute -bottom-4 -left-4 w-full h-full rounded-2xl -z-10 pointer-events-none"
-              style={{ border: '1px solid rgba(201,169,110,0.20)' }}
-            />
-
-            {/* Experience badge */}
-            <div
-              className="absolute bottom-6 right-6 px-5 py-4 rounded-2xl text-center"
-              style={{
-                background: 'rgba(8,8,16,0.90)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(201,169,110,0.25)',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
-              }}
-            >
-              <p className="font-heading text-3xl font-bold text-gradient">15+</p>
-              <p className="text-xs text-white/50 font-accent mt-0.5">лет опыта</p>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div ref={contentRef} className="space-y-0">
-            <p className="font-accent text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#C9A96E' }}>
-              Ваш преподаватель
-            </p>
-
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-tight mb-3">
-              Елена Воробьева
-            </h2>
-
-            <p className="mb-6" style={{ color: 'rgba(201,169,110,0.85)', fontSize: '1.05rem' }}>
-              Главный дизайнер студии VOROBEY DESIGN
-            </p>
-
-            <p className="text-white/55 leading-relaxed font-body mb-8 text-[0.95rem]">
-              Практикующий дизайнер интерьеров и мебели с 15-летним опытом.
-              Автор более 200 успешных проектов от квартир до загородных домов.
-              Сертифицированный специалист по работе с итальянскими и
-              немецкими фабриками.
-            </p>
-
-            {/* Credentials */}
-            <div className="space-y-3 mb-8">
-              {credentials.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <div key={index} className="flex items-center gap-3">
-                    <div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ background: 'rgba(201,169,110,0.12)', border: '1px solid rgba(201,169,110,0.20)' }}
-                    >
-                      <Icon className="w-4 h-4" style={{ color: '#C9A96E' }} />
-                    </div>
-                    <span className="text-sm text-white/65 font-body">{item.text}</span>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Social links */}
-            <div className="flex items-center gap-3">
-              {[
-                { Icon: Instagram, label: 'Instagram' },
-                { Icon: Youtube, label: 'YouTube' },
-              ].map(({ Icon, label }) => (
-                <a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
-                  style={{
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.10)',
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.background = 'rgba(201,169,110,0.15)';
-                    el.style.borderColor = 'rgba(201,169,110,0.4)';
-                    el.style.boxShadow = '0 0 16px rgba(201,169,110,0.2)';
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.background = 'rgba(255,255,255,0.06)';
-                    el.style.borderColor = 'rgba(255,255,255,0.10)';
-                    el.style.boxShadow = 'none';
-                  }}
-                >
-                  <Icon className="w-4.5 h-4.5 text-white/70" style={{ width: '18px', height: '18px' }} />
-                </a>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
