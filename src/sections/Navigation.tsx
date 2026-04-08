@@ -43,8 +43,8 @@ export function Navigation() {
           <a href="#" className="flex items-center gap-2.5 group">
             <div className="font-heading leading-none">
               <span className="text-lg font-semibold" style={{ color: '#F5F0EB' }}>TERRIA</span>
-              <span className="hidden sm:inline font-light text-base mx-1.5" style={{ color: 'rgba(245,240,235,0.25)' }}>×</span>
-              <span className="hidden sm:inline text-base font-normal" style={{ color: '#B8AFA5' }}>Галина Гусарова</span>
+              <span className="font-light text-base mx-1.5" style={{ color: 'rgba(245,240,235,0.25)' }}>×</span>
+              <span className="text-base font-normal" style={{ color: '#B8AFA5' }}>Галина Гусарова</span>
             </div>
           </a>
 
