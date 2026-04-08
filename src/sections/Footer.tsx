@@ -102,10 +102,7 @@ export function Footer() {
         {/* Нижняя строка */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="font-body text-xs" style={{ color: '#4A4540' }}>
-            © 2025 TERRIA. Все права защищены.
-          </p>
-          <p className="font-body text-xs" style={{ color: '#4A4540' }}>
-            Мастер-класс по проектированию мебели
+            © 2026 TERRIA. Все права защищены.
           </p>
         </div>
       </div>
