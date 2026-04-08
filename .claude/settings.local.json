@@ -34,7 +34,9 @@
       "Bash(claude mcp:*)",
       "mcp__magic__21st_magic_component_inspiration",
       "mcp__magic__21st_magic_component_refiner",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }

@@ -22,6 +22,7 @@ const organizers = [
   {
     photo: '/galina.jpg',
     photoPosition: 'center 20%',
+    photoScale: 1.25,
     name: 'Галина Гусарова',
     role: 'Хоумстейджер',
     accent: '#D4A96A',
@@ -104,7 +105,14 @@ export function Instructor() {
               {/* Фото-обложка */}
               <div className="relative w-full h-[400px] overflow-hidden">
                 <img src={org.photo} alt={org.name}
-                  className="w-full h-full object-cover" style={{ objectPosition: org.photoPosition }} />
+                  className="absolute object-cover"
+                  style={{
+                    width: `${(org.photoScale || 1) * 100}%`,
+                    height: `${(org.photoScale || 1) * 100}%`,
+                    top: '50%', left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    objectPosition: org.photoPosition,
+                  }} />
                 {/* Градиент снизу фото */}
                 <div className="absolute inset-0"
                   style={{ background: 'linear-gradient(to top, #403D3A 0%, rgba(64,61,58,0.4) 40%, transparent 100%)' }} />
