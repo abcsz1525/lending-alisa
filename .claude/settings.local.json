@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(npx vite:*)",
+      "Bash(./node_modules/.bin/vite build:*)",
+      "Bash(node_modules/.bin/vite.cmd build:*)",
+      "Bash(cmd.exe /c \"cd /d \\\\\"C:\\\\Users\\\\admin\\\\Desktop\\\\лендос\\\\\" && node_modules\\\\.bin\\\\vite.cmd build 2>&1\")",
+      "Bash(cmd.exe /c \"cd /d \\\\\"C:\\\\Users\\\\admin\\\\Desktop\\\\лендос\\\\\" && npm run build 2>&1\")",
+      "Bash(cmd.exe /c \"cd /d \\\\\"C:\\\\Users\\\\admin\\\\Desktop\\\\лендос\\\\\" && npm run dev 2>&1\")",
+      "Bash(cmd.exe /c \"cd /d \\\\\"C:\\\\Users\\\\admin\\\\Desktop\\\\лендос\\\\\" && npm run dev\")",
+      "Bash(python3 -c \"import os; path = os.path.expandvars\\('%USERPROFILE%'\\) + '/Desktop/лендос/node_modules/.bin'; print\\(os.listdir\\(path\\)[:10] if os.path.exists\\(path\\) else 'NOT FOUND: ' + path\\)\")",
+      "Bash(node -e \"const fs=require\\('fs'\\); const p='C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\admin\\\\\\\\\\\\\\\\Desktop\\\\\\\\\\\\\\\\лендос\\\\\\\\\\\\\\\\node_modules\\\\\\\\\\\\\\\\.bin'; try{console.log\\(fs.readdirSync\\(p\\).filter\\(f=>f.includes\\('vite'\\)\\)\\)}catch\\(e\\){console.log\\('err:',e.message\\)}\")",
+      "Bash(node -e ':*)",
+      "Bash(npm install:*)",
+      "Bash(node node_modules/vite/bin/vite.js --port 5173 --host)"
+    ]
+  }
+}
