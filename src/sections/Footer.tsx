@@ -1,13 +1,13 @@
-import { TerraLogo } from '../components/TerraLogo';
+
 import { MessengerButtons } from '../components/MessengerButtons';
 
 const navLinks = [
-  { label: 'Для кого', href: '#for-whom' },
-  { label: 'Программа', href: '#program' },
-  { label: 'Формат', href: '#about' },
+  { label: 'Для кого',    href: '#for-whom'   },
+  { label: 'Программа',  href: '#program'     },
+  { label: 'Формат',     href: '#about'       },
   { label: 'Организаторы', href: '#instructor' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Стоимость', href: '#pricing' },
+  { label: 'FAQ',        href: '#faq'         },
+  { label: 'Стоимость',  href: '#pricing'     },
 ];
 
 export function Footer() {
@@ -16,41 +16,58 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative py-14 lg:py-16 overflow-hidden"
-      style={{ background: '#2A2825' }}>
+    <footer className="relative overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #222018, #1E1C1A)' }}>
 
-      {/* Top divider */}
-      <div className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(212,169,106,0.3), transparent)' }} />
+      {/* Верхняя терракотовая линия */}
+      <div className="absolute top-0 left-0 right-0 h-[2px]"
+        style={{ background: 'linear-gradient(90deg, transparent, #C4704F 25%, #D4845A 60%, transparent)' }} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-16 mb-12">
+      {/* Фоновая текстура */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
+          backgroundSize: '300px 300px',
+        }} />
 
-          {/* Brand */}
+      {/* Блюпринт */}
+      <div className="absolute inset-0 pointer-events-none pattern-blueprint opacity-20" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-14 lg:py-16">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-14 mb-12">
+
+          {/* Бренд */}
           <div className="lg:col-span-1">
-            <a href="#" className="flex items-center gap-2.5 mb-4">
-              <TerraLogo size={28} />
-              <span className="font-heading text-lg font-semibold text-white">
-                TERRIA <span className="text-white/35 font-light">×</span> Гусарова
+            <a href="#" className="flex items-center gap-2.5 mb-4 group">
+              <span className="font-heading text-lg font-semibold" style={{ color: '#F5F0EB' }}>
+                TERRIA
+                <span style={{ color: 'rgba(245,240,235,0.25)', margin: '0 6px' }}>×</span>
+                <span style={{ color: '#B8AFA5', fontWeight: 400 }}>Гусарова</span>
               </span>
             </a>
-            <p className="text-sm text-white/40 leading-relaxed font-body mb-6 max-w-xs">
+
+            <p className="font-body text-sm leading-relaxed mb-6 max-w-xs" style={{ color: '#6C635A' }}>
               Мастер-класс по проектированию мебели для хоумстейджеров и дизайнеров интерьера
             </p>
+
             <MessengerButtons size="default" />
           </div>
 
-          {/* Nav links */}
+          {/* Навигация */}
           <div>
-            <h4 className="font-accent font-semibold text-[11px] uppercase tracking-widest mb-4 text-white/35">
+            <h4 className="font-accent font-semibold text-[11px] uppercase tracking-widest mb-5"
+              style={{ color: '#6C635A' }}>
               Навигация
             </h4>
             <ul className="space-y-3">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <button
-                    onClick={() => scrollTo(link.href)}
-                    className="text-sm text-white/50 hover:text-white/85 transition-colors duration-200 font-body">
+                  <button onClick={() => scrollTo(link.href)}
+                    className="font-body text-sm transition-colors duration-200"
+                    style={{ color: '#8C837A' }}
+                    onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.color = '#D4845A'}
+                    onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.color = '#8C837A'}>
                     {link.label}
                   </button>
                 </li>
@@ -58,27 +75,36 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Details */}
+          {/* Детали */}
           <div>
-            <h4 className="font-accent font-semibold text-[11px] uppercase tracking-widest mb-4 text-white/35">
-              Детали
+            <h4 className="font-accent font-semibold text-[11px] uppercase tracking-widest mb-5"
+              style={{ color: '#6C635A' }}>
+              Детали мастер-класса
             </h4>
-            <div className="space-y-2.5 text-sm font-body text-white/50">
-              <p>📅 18 и 19 апреля</p>
-              <p>📍 БЦ Технопарк плаза, Москва</p>
-              <p>⏱ 3 часа в день</p>
-              <p>💰 15 000 ₽</p>
+            <div className="space-y-2.5">
+              {[
+                '📅 18 и 19 апреля',
+                '📍 БЦ Технопарк плаза, Москва',
+                '⏱ 3 часа в день',
+                '💰 15 000 ₽',
+              ].map((item) => (
+                <p key={item} className="font-body text-sm" style={{ color: '#8C837A' }}>{item}</p>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="h-px mb-8" style={{ background: 'rgba(255,255,255,0.07)' }} />
+        {/* Разделитель с ромбом */}
+        <div className="section-divider mb-8">
+          <div className="diamond" />
+        </div>
+
+        {/* Нижняя строка */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-xs text-white/25 font-body">
+          <p className="font-body text-xs" style={{ color: '#4A4540' }}>
             © 2025 TERRIA. Все права защищены.
           </p>
-          <p className="text-xs text-white/20 font-body">
+          <p className="font-body text-xs" style={{ color: '#4A4540' }}>
             Мастер-класс по проектированию мебели
           </p>
         </div>

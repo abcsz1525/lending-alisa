@@ -30,7 +30,10 @@
       "Bash(sed -i '' \"s/background: 'linear-gradient\\(180deg, #080810 0%, #0D0D18 100%\\)'/background: 'linear-gradient\\(180deg, #B85D25 0%, #A85220 100%\\)'/g\" src/sections/FAQ.tsx)",
       "Bash(sed -i '' \"s/background: 'linear-gradient\\(180deg, #0D0D18 0%, #080810 100%\\)'/background: 'linear-gradient\\(180deg, #A85220 0%, #B85D25 100%\\)'/g\" src/sections/Testimonials.tsx)",
       "Bash(sed -i '' \"s/background: 'rgba\\(255,255,255,0.025\\)'/background: 'rgba\\(0,0,0,0.15\\)'/g\" src/sections/FAQ.tsx src/sections/Testimonials.tsx)",
-      "Bash(sed -i '' \"s/border: '1px solid rgba\\(255,255,255,0.07\\)'/border: '1px solid rgba\\(255,255,255,0.18\\)'/g\" src/sections/FAQ.tsx src/sections/Testimonials.tsx)"
+      "Bash(sed -i '' \"s/border: '1px solid rgba\\(255,255,255,0.07\\)'/border: '1px solid rgba\\(255,255,255,0.18\\)'/g\" src/sections/FAQ.tsx src/sections/Testimonials.tsx)",
+      "Bash(claude mcp:*)",
+      "mcp__magic__21st_magic_component_inspiration",
+      "mcp__magic__21st_magic_component_refiner"
     ]
   }
 }

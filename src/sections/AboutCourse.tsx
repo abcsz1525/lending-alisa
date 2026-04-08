@@ -6,83 +6,107 @@ import { Calendar, MapPin, Clock, Laptop, Banknote } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 const details = [
-  { icon: Calendar, label: 'Даты', value: '18 и 19 апреля', color: '#D4A96A' },
-  { icon: MapPin, label: 'Место', value: 'БЦ Технопарк плаза', color: '#A09890' },
-  { icon: Clock, label: 'Длительность', value: '3 часа в день', color: '#A09890' },
-  { icon: Laptop, label: 'Что взять', value: 'Ноутбук с программой', note: 'Ссылка выдаётся участникам', color: '#A09890' },
-  { icon: Banknote, label: 'Стоимость', value: '15 000 ₽', color: '#D4A96A', highlight: true },
+  { icon: Calendar, label: 'Даты и время', value: '18 и 19 апреля, 13:00 – 16:00', accent: '#C4704F' },
+  { icon: MapPin,   label: 'Место',        value: 'Москва, БЦ Технопарк Плаза',         accent: '#D4A96A' },
+
+  { icon: Laptop,   label: 'Что взять',    value: 'Ноутбук с программой',       accent: '#D4A96A', note: 'Ссылка выдаётся участникам' },
+  { icon: Banknote, label: 'Стоимость',    value: '15 000 ₽',                   accent: '#C4704F', highlight: true },
 ];
 
 export function AboutCourse() {
   const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const titleRef   = useRef<HTMLDivElement>(null);
+  const listRef    = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(titleRef.current,
         { opacity: 0, y: 28 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-          scrollTrigger: { trigger: titleRef.current, start: 'top 85%', toggleActions: 'play none none none' } }
+          scrollTrigger: { trigger: titleRef.current, start: 'top 85%' } }
       );
-      gsap.fromTo(cardsRef.current?.children || [],
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.09, ease: 'power3.out',
-          scrollTrigger: { trigger: cardsRef.current, start: 'top 80%', toggleActions: 'play none none none' } }
+      gsap.fromTo(listRef.current?.children || [],
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.07, ease: 'power3.out',
+          scrollTrigger: { trigger: listRef.current, start: 'top 82%' } }
       );
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="about" ref={sectionRef}
-      className="py-20 lg:py-32"
-      style={{ backgroundColor: '#3E3C39' }}>
+    <section id="about" ref={sectionRef} className="relative py-20 lg:py-32 overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #3E3C39 0%, #3B3936 50%, #3E3C39 100%)' }}>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Title */}
-        <div ref={titleRef} className="text-center mb-12 lg:mb-14">
-          <p className="font-accent text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#D4A96A' }}>
-            Детали
-          </p>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-tight">
+      {/* Лёгкий геометрический паттерн */}
+      <div className="absolute inset-0 pointer-events-none pattern-blueprint opacity-30" />
+
+      {/* Мягкое свечение */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse, rgba(196,112,79,0.06) 0%, transparent 70%)', filter: 'blur(60px)' }} />
+
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        {/* Заголовок */}
+        <div ref={titleRef} className="text-center mb-10 lg:mb-12">
+          <span className="badge-terra mb-5 inline-flex">Детали</span>
+          <h2 className="font-heading font-bold leading-tight"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#F5F0EB' }}>
             Формат и <span className="text-gradient">детали</span>
           </h2>
+          <div className="section-divider max-w-xs mx-auto mt-5">
+            <div className="diamond" />
+          </div>
         </div>
 
-        {/* Cards */}
-        <div ref={cardsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {details.map((item) => {
+        {/* Список строк */}
+        <div ref={listRef}>
+          {details.map((item, i) => {
             const Icon = item.icon;
             return (
-              <div key={item.label}
-                className="relative rounded-2xl p-6"
-                style={{
-                  background: item.highlight ? 'rgba(212,169,106,0.10)' : 'rgba(255,255,255,0.05)',
-                  border: item.highlight ? '1px solid rgba(212,169,106,0.30)' : '1px solid rgba(255,255,255,0.09)',
-                  transition: 'transform 0.25s ease',
-                }}
-                onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-3px)'}
-                onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'}>
+              <div key={item.label}>
+                {/* Строка */}
+                <div
+                  className="flex items-center gap-4 py-4 transition-all duration-200 group"
+                  style={{ cursor: 'default' }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLDivElement).style.paddingLeft = '8px';
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLDivElement).style.paddingLeft = '0px';
+                  }}
+                >
+                  {/* Иконка */}
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ background: `${item.accent}12`, border: `1px solid ${item.accent}22` }}>
+                    <Icon className="w-[18px] h-[18px]" style={{ color: item.accent }} />
+                  </div>
 
-                {/* Top accent */}
-                <div className="absolute top-0 left-6 right-6 h-px rounded-full"
-                  style={{ background: `linear-gradient(90deg, transparent, ${item.color}55, transparent)` }} />
+                  {/* Лейбл */}
+                  <span className="font-accent font-semibold text-xs uppercase tracking-wider flex-shrink-0 w-28"
+                    style={{ color: '#6C635A' }}>
+                    {item.label}
+                  </span>
 
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                  style={{ background: `${item.color}18`, border: `1px solid ${item.color}28` }}>
-                  <Icon className="w-5 h-5" style={{ color: item.color }} />
+                  {/* Пунктирная линия-заполнитель */}
+                  <div className="flex-1 border-b border-dashed mx-1" style={{ borderColor: 'rgba(196,112,79,0.15)' }} />
+
+                  {/* Значение */}
+                  <div className="text-right flex-shrink-0">
+                    <span className="font-heading font-semibold text-lg"
+                      style={{ color: item.highlight ? '#D4845A' : '#F5F0EB' }}>
+                      {item.value}
+                    </span>
+                    {item.note && (
+                      <p className="font-body text-xs mt-0.5" style={{ color: '#6C635A' }}>{item.note}</p>
+                    )}
+                  </div>
                 </div>
 
-                <p className="text-xs font-accent font-semibold tracking-wider uppercase text-white/40 mb-1">
-                  {item.label}
-                </p>
-                <p className="font-heading font-semibold text-base sm:text-lg leading-snug"
-                  style={{ color: item.highlight ? '#D4A96A' : 'white' }}>
-                  {item.value}
-                </p>
-                {item.note && (
-                  <p className="text-xs text-white/35 mt-1 font-body">{item.note}</p>
+                {/* Разделитель между строками */}
+                {i < details.length - 1 && (
+                  <div className="h-px"
+                    style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)' }} />
                 )}
               </div>
             );

@@ -6,186 +6,175 @@ import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
-  {
-    name: 'Анна М.',
-    role: 'Хоумстейджер',
-    text: 'Наконец-то понимаю, как правильно подбирать и заказывать мебель для staging. Курс дал уверенность в переговорах с поставщиками.',
-    rating: 5,
-    initial: 'А',
-  },
-  {
-    name: 'Михаил К.',
-    role: 'Дизайнер интерьера',
-    text: 'Отличный баланс теории и практики. Уже применяю знания в текущих проектах — клиенты видят разницу.',
-    rating: 5,
-    initial: 'М',
-  },
-  {
-    name: 'Ольга С.',
-    role: 'Хоумстейджер',
-    text: 'Давно хотела разобраться в технических аспектах мебели. Всё объясняется простым языком — и наконец стало понятно!',
-    rating: 5,
-    initial: 'О',
-  },
-  {
-    name: 'Дмитрий П.',
-    role: 'Владелец студии',
-    text: 'Отправил двух сотрудников. Результат превзошёл ожидания — теперь они говорят с производством на одном языке.',
-    rating: 5,
-    initial: 'Д',
-  },
+  { name: 'Анна М.',    role: 'Хоумстейджер',        initial: 'А', rating: 5, text: 'Наконец-то понимаю, как правильно подбирать и заказывать мебель для staging. Курс дал уверенность в переговорах с поставщиками.' },
+  { name: 'Михаил К.', role: 'Дизайнер интерьера',   initial: 'М', rating: 5, text: 'Отличный баланс теории и практики. Уже применяю знания в текущих проектах — клиенты видят разницу.' },
+  { name: 'Ольга С.',   role: 'Хоумстейджер',        initial: 'О', rating: 5, text: 'Давно хотела разобраться в технических аспектах мебели. Всё объясняется простым языком — и наконец стало понятно!' },
+  { name: 'Дмитрий П.',role: 'Владелец студии',      initial: 'Д', rating: 5, text: 'Отправил двух сотрудников. Результат превзошёл ожидания — теперь они говорят с производством на одном языке.' },
 ];
 
 export function Testimonials() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const sectionRef  = useRef<HTMLElement>(null);
+  const titleRef    = useRef<HTMLDivElement>(null);
+  const wrapperRef  = useRef<HTMLDivElement>(null);
+  const [idx, setIdx]           = useState(0);
+  const [animating, setAnimating] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(titleRef.current,
         { opacity: 0, y: 28 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-          scrollTrigger: { trigger: titleRef.current, start: 'top 85%', toggleActions: 'play none none none' } }
+          scrollTrigger: { trigger: titleRef.current, start: 'top 85%' } }
       );
-      gsap.fromTo(carouselRef.current,
+      gsap.fromTo(wrapperRef.current,
         { opacity: 0, y: 28 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-          scrollTrigger: { trigger: carouselRef.current, start: 'top 80%', toggleActions: 'play none none none' } }
+          scrollTrigger: { trigger: wrapperRef.current, start: 'top 82%' } }
       );
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex(prev => (prev + 1) % testimonials.length);
-    }, 5500);
-    return () => clearInterval(interval);
+    const iv = setInterval(() => setIdx(p => (p + 1) % testimonials.length), 5500);
+    return () => clearInterval(iv);
   }, []);
 
   const navigate = (dir: 'prev' | 'next') => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentIndex(prev =>
-      dir === 'next'
-        ? (prev + 1) % testimonials.length
-        : (prev - 1 + testimonials.length) % testimonials.length
-    );
-    setTimeout(() => setIsAnimating(false), 400);
+    if (animating) return;
+    setAnimating(true);
+    setIdx(p => dir === 'next' ? (p + 1) % testimonials.length : (p - 1 + testimonials.length) % testimonials.length);
+    setTimeout(() => setAnimating(false), 400);
   };
 
-  const t = testimonials[currentIndex];
+  const t = testimonials[idx];
 
   return (
-    <section id="testimonials" ref={sectionRef}
-      className="py-20 lg:py-32 relative overflow-hidden"
-      style={{ backgroundColor: '#3E3C39' }}>
+    <section id="testimonials" ref={sectionRef} className="relative py-20 lg:py-32 overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #353330 0%, #322F2C 50%, #353330 100%)' }}>
+
+      {/* Декоративная большая кавычка на фоне */}
+      <div className="absolute top-8 left-8 font-heading select-none pointer-events-none"
+        style={{ fontSize: '22rem', lineHeight: 1, color: '#C4704F', opacity: 0.03 }}>"</div>
+
+      {/* Ещё одна кавычка справа */}
+      <div className="absolute bottom-8 right-8 font-heading select-none pointer-events-none"
+        style={{ fontSize: '14rem', lineHeight: 1, color: '#D4A96A', opacity: 0.02, transform: 'rotate(180deg)' }}>"</div>
+
+      {/* Мягкое свечение */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse, rgba(196,112,79,0.06) 0%, transparent 70%)', filter: 'blur(50px)' }} />
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Title */}
+
+        {/* Заголовок */}
         <div ref={titleRef} className="text-center mb-10 lg:mb-12">
-          <p className="font-accent text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#D4A96A' }}>
-            Отзывы
-          </p>
-          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white leading-tight">
+          <span className="badge-terra mb-5 inline-flex">Отзывы</span>
+          <h2 className="font-heading font-bold leading-tight"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#F5F0EB' }}>
             Что говорят <span className="text-gradient">участники</span>
           </h2>
+          <div className="section-divider max-w-xs mx-auto mt-5">
+            <div className="diamond" />
+          </div>
         </div>
 
-        {/* Carousel */}
-        <div ref={carouselRef}>
-          {/* Card */}
-          <div className="rounded-2xl p-6 sm:p-9 relative overflow-hidden"
+        {/* Карусель */}
+        <div ref={wrapperRef}>
+
+          {/* Карточка */}
+          <div className="relative rounded-2xl p-6 sm:p-9 overflow-hidden"
             style={{
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.10)',
-              boxShadow: '0 8px 40px rgba(0,0,0,0.3)',
-              minHeight: '220px',
+              background: 'linear-gradient(145deg, #423F3C, #3E3C39)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              boxShadow: '0 8px 40px rgba(0,0,0,0.35), 0 0 30px rgba(196,112,79,0.04)',
             }}>
 
-            {/* Big quote */}
-            <div className="absolute top-4 right-6 font-heading text-[100px] leading-none select-none pointer-events-none"
-              style={{ color: 'rgba(212,169,106,0.06)', lineHeight: 1 }}>
-              "
-            </div>
+            {/* Верхняя терракотовая линия-градиент */}
+            <div className="absolute top-0 left-0 right-0 h-[2px]"
+              style={{ background: 'linear-gradient(90deg, #C4704F, #D4845A 50%, transparent)' }} />
 
-            {/* Stars */}
+            {/* Уголки */}
+            <div className="absolute top-3 right-3 w-5 h-5 pointer-events-none"
+              style={{ borderTop: '1px solid rgba(196,112,79,0.18)', borderRight: '1px solid rgba(196,112,79,0.18)' }} />
+            <div className="absolute bottom-3 left-3 w-5 h-5 pointer-events-none"
+              style={{ borderBottom: '1px solid rgba(196,112,79,0.18)', borderLeft: '1px solid rgba(196,112,79,0.18)' }} />
+
+            {/* Звёзды */}
             <div className="flex gap-1 mb-5">
               {[...Array(t.rating)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-[#D4A96A] text-[#D4A96A]" />
+                <Star key={i} className="w-4 h-4" style={{ fill: '#C4704F', color: '#C4704F' }} />
               ))}
             </div>
 
-            {/* Quote text */}
-            <p key={currentIndex}
-              className="text-base sm:text-lg text-white/75 leading-relaxed mb-7 font-body relative z-10"
-              style={{ animation: 'fadeUp 0.35s ease-out' }}>
+            {/* Цитата */}
+            <p key={idx} className="font-body leading-relaxed mb-7"
+              style={{ fontSize: '1.05rem', color: '#D8D0C8', animation: 'fade-up 0.35s ease-out' }}>
               "{t.text}"
             </p>
 
-            {/* Author */}
+            {/* Разделитель */}
+            <div className="h-px mb-5"
+              style={{ background: 'linear-gradient(90deg, rgba(196,112,79,0.15), transparent)' }} />
+
+            {/* Автор */}
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full flex items-center justify-center font-heading font-bold text-sm flex-shrink-0"
-                style={{ background: 'rgba(212,169,106,0.18)', border: '1px solid rgba(212,169,106,0.28)', color: '#D4A96A' }}>
+                style={{ background: 'rgba(196,112,79,0.18)', border: '1px solid rgba(196,112,79,0.28)', color: '#C4704F' }}>
                 {t.initial}
               </div>
               <div>
-                <p className="font-heading font-semibold text-white text-sm">{t.name}</p>
-                <p className="text-xs text-white/45 font-accent">{t.role}</p>
+                <p className="font-heading font-semibold text-sm" style={{ color: '#F5F0EB' }}>{t.name}</p>
+                <p className="font-accent text-xs" style={{ color: '#8C837A' }}>{t.role}</p>
               </div>
             </div>
           </div>
 
-          {/* Nav */}
-          <div className="flex items-center justify-between mt-6">
-            {/* Dots */}
+          {/* Навигация */}
+          <div className="flex items-center justify-between mt-5">
+            {/* Точки */}
             <div className="flex gap-2 items-center">
               {testimonials.map((_, i) => (
-                <button key={i} onClick={() => setCurrentIndex(i)}
+                <button key={i} onClick={() => setIdx(i)}
                   className="rounded-full transition-all duration-300"
                   style={{
-                    width: i === currentIndex ? '24px' : '7px',
-                    height: '7px',
-                    background: i === currentIndex ? '#D4A96A' : 'rgba(255,255,255,0.18)',
+                    width: i === idx ? '22px' : '6px',
+                    height: '6px',
+                    background: i === idx ? 'linear-gradient(90deg, #C4704F, #D4845A)' : 'rgba(255,255,255,0.15)',
                   }} />
               ))}
             </div>
 
-            {/* Arrows */}
+            {/* Номер */}
+            <span className="font-accent text-xs tracking-widest uppercase" style={{ color: '#6C635A' }}>
+              {String(idx + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
+            </span>
+
+            {/* Стрелки */}
             <div className="flex gap-2">
               {(['prev', 'next'] as const).map((dir) => (
                 <button key={dir} onClick={() => navigate(dir)}
-                  className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-250"
-                  style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)' }}
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)' }}
                   onMouseEnter={e => {
                     const el = e.currentTarget as HTMLButtonElement;
-                    el.style.background = 'rgba(212,169,106,0.12)';
-                    el.style.borderColor = 'rgba(212,169,106,0.30)';
+                    el.style.background = 'rgba(196,112,79,0.14)';
+                    el.style.borderColor = 'rgba(196,112,79,0.35)';
                   }}
                   onMouseLeave={e => {
                     const el = e.currentTarget as HTMLButtonElement;
-                    el.style.background = 'rgba(255,255,255,0.06)';
-                    el.style.borderColor = 'rgba(255,255,255,0.10)';
+                    el.style.background = 'rgba(255,255,255,0.04)';
+                    el.style.borderColor = 'rgba(255,255,255,0.09)';
                   }}>
                   {dir === 'prev'
-                    ? <ChevronLeft className="w-4 h-4 text-white/55" />
-                    : <ChevronRight className="w-4 h-4 text-white/55" />}
+                    ? <ChevronLeft  className="w-4 h-4" style={{ color: '#B8AFA5' }} />
+                    : <ChevronRight className="w-4 h-4" style={{ color: '#B8AFA5' }} />}
                 </button>
               ))}
             </div>
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(10px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </section>
   );
 }

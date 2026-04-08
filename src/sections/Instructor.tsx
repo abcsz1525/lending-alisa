@@ -7,9 +7,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 const organizers = [
   {
+    photo: '/terria.jpg',
+    photoPosition: 'top center',
     name: 'Команда TERRIA',
     role: 'Производство мебели с 2014 года',
-    colorLine: '#D4A96A',
+    accent: '#C4704F',
     facts: [
       'Опыт в производстве мебели с 2014 года',
       'Знание каждого этапа производства изнутри',
@@ -18,69 +20,80 @@ const organizers = [
     ],
   },
   {
+    photo: '/galina.jpg',
+    photoPosition: 'center 20%',
     name: 'Галина Гусарова',
     role: 'Хоумстейджер',
-    colorLine: '#A09890',
+    accent: '#D4A96A',
     facts: [
       'Признанный лидер рынка комплектации жилой недвижимости в Москве и Дубае',
       '200+ успешных реализаций квартир под ключ',
-      'Призёр премии «Самый обсуждаемый рум тур года»',
-      'Призёр премии «Обзор года»',
+      'Призёр премий «Самый обсуждаемый рум тур года», «Обзор года»',
+      'Своя команда с первого месяца в карьере хоумстейджинга',
     ],
   },
 ];
 
 export function Instructor() {
   const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const titleRef   = useRef<HTMLDivElement>(null);
+  const cardsRef   = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(titleRef.current,
         { opacity: 0, y: 28 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-          scrollTrigger: { trigger: titleRef.current, start: 'top 85%', toggleActions: 'play none none none' } }
+          scrollTrigger: { trigger: titleRef.current, start: 'top 85%' } }
       );
       gsap.fromTo(cardsRef.current?.children || [],
-        { opacity: 0, y: 36, scale: 0.98 },
+        { opacity: 0, y: 36, scale: 0.97 },
         { opacity: 1, y: 0, scale: 1, duration: 0.65, stagger: 0.18, ease: 'power3.out',
-          scrollTrigger: { trigger: cardsRef.current, start: 'top 80%', toggleActions: 'play none none none' } }
+          scrollTrigger: { trigger: cardsRef.current, start: 'top 82%' } }
       );
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="instructor" ref={sectionRef}
-      className="py-20 lg:py-32"
-      style={{ background: 'linear-gradient(180deg, #353330 0%, #3E3C39 100%)' }}>
+    <section id="instructor" ref={sectionRef} className="relative py-20 lg:py-32 overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #353330 0%, #322F2C 50%, #353330 100%)' }}>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Title */}
+      {/* Мягкое свечение по центру */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse, rgba(196,112,79,0.07) 0%, transparent 70%)', filter: 'blur(50px)' }} />
+
+      {/* Блюпринт */}
+      <div className="absolute inset-0 pointer-events-none pattern-blueprint opacity-30" />
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        {/* Заголовок */}
         <div ref={titleRef} className="text-center mb-12 lg:mb-14">
-          <p className="font-accent text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#D4A96A' }}>
-            Организаторы
-          </p>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-tight">
+          <span className="badge-terra mb-5 inline-flex">Организаторы</span>
+          <h2 className="font-heading font-bold leading-tight"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#F5F0EB' }}>
             Кто проводит <span className="text-gradient">мастер-класс</span>
           </h2>
+          <div className="section-divider max-w-xs mx-auto mt-5">
+            <div className="diamond" />
+          </div>
         </div>
 
-        {/* Cards */}
+        {/* Карточки */}
         <div ref={cardsRef} className="grid sm:grid-cols-2 gap-5 lg:gap-7">
           {organizers.map((org) => (
             <div key={org.name}
-              className="relative rounded-2xl p-7 lg:p-9 overflow-hidden"
+              className="relative rounded-2xl overflow-hidden"
               style={{
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.09)',
+                background: 'linear-gradient(145deg, #403D3A, #3E3C39)',
+                border: '1px solid rgba(255,255,255,0.08)',
                 transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               }}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLDivElement;
-                el.style.transform = 'translateY(-4px)';
-                el.style.boxShadow = '0 20px 50px rgba(0,0,0,0.35)';
+                el.style.transform = 'translateY(-5px)';
+                el.style.boxShadow = `0 20px 55px rgba(0,0,0,0.40), 0 0 0 1px ${org.accent}20`;
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget as HTMLDivElement;
@@ -88,37 +101,59 @@ export function Instructor() {
                 el.style.boxShadow = 'none';
               }}>
 
-              {/* Top accent line */}
-              <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl"
-                style={{ background: `linear-gradient(90deg, ${org.colorLine}, transparent)` }} />
-
-              {/* Avatar placeholder */}
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 font-heading font-bold text-2xl"
-                style={{ background: `${org.colorLine}18`, border: `1px solid ${org.colorLine}28`, color: org.colorLine }}>
-                {org.name.charAt(0)}
+              {/* Фото-обложка */}
+              <div className="relative w-full h-[400px] overflow-hidden">
+                <img src={org.photo} alt={org.name}
+                  className="w-full h-full object-cover" style={{ objectPosition: org.photoPosition }} />
+                {/* Градиент снизу фото */}
+                <div className="absolute inset-0"
+                  style={{ background: 'linear-gradient(to top, #403D3A 0%, rgba(64,61,58,0.4) 40%, transparent 100%)' }} />
+                {/* Терракотовая линия по нижнему краю фото */}
+                <div className="absolute bottom-0 left-0 w-24 h-[2px]"
+                  style={{ background: `linear-gradient(90deg, ${org.accent}, transparent)` }} />
               </div>
 
-              <h3 className="font-heading text-xl sm:text-2xl font-bold text-white mb-1">
-                {org.name}
-              </h3>
-              <p className="font-accent text-sm mb-5" style={{ color: org.colorLine }}>
-                {org.role}
-              </p>
+              {/* Контент */}
+              <div className="px-7 lg:px-9 pb-8 lg:pb-10 pt-6">
 
-              <div className="h-px mb-5" style={{ background: 'rgba(255,255,255,0.07)' }} />
+                {/* Уголки */}
+                <div className="absolute top-3 right-3 w-5 h-5 pointer-events-none"
+                  style={{ borderTop: `1px solid ${org.accent}20`, borderRight: `1px solid ${org.accent}20` }} />
+                <div className="absolute bottom-3 left-3 w-5 h-5 pointer-events-none"
+                  style={{ borderBottom: `1px solid ${org.accent}20`, borderLeft: `1px solid ${org.accent}20` }} />
 
-              <ul className="space-y-3">
-                {org.facts.map((fact) => (
-                  <li key={fact} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: org.colorLine }} />
-                    <span className="text-sm text-white/65 font-body leading-relaxed">{fact}</span>
-                  </li>
-                ))}
-              </ul>
+                <h3 className="font-heading font-bold mb-2"
+                  style={{ fontSize: '1.75rem', color: '#F5F0EB' }}>
+                  {org.name}
+                </h3>
+
+                <p className="font-accent font-medium text-base mb-6" style={{ color: org.accent }}>
+                  {org.role}
+                </p>
+
+                <div className="h-px mb-6" style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.07), transparent)' }} />
+
+                <ul className="space-y-4">
+                  {org.facts.map((fact) => (
+                    <li key={fact} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-[18px] h-[18px] flex-shrink-0 mt-0.5" style={{ color: org.accent }} />
+                      <span className="font-body text-[0.95rem] leading-relaxed" style={{ color: '#B8AFA5' }}>{fact}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Декоративный ромб */}
+                <div className="absolute bottom-5 right-5 w-4 h-4 pointer-events-none opacity-[0.08]"
+                  style={{ background: org.accent, transform: 'rotate(45deg)' }} />
+              </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Переход */}
+      <div className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, transparent, #3E3C39)' }} />
     </section>
   );
 }
