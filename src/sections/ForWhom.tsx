@@ -19,6 +19,13 @@ const audiences = [
     accent: '#D4A96A',
     accentLight: 'rgba(212,169,106,0.12)',
   },
+  {
+    emoji: '✨',
+    title: 'Новички',
+    description: 'Тем, кто интересуется дизайном, хоумстейджингом и хотел бы прикоснуться к этим профессиям',
+    accent: '#B8917A',
+    accentLight: 'rgba(184,145,122,0.12)',
+  },
 ];
 
 export function ForWhom() {
@@ -77,7 +84,7 @@ export function ForWhom() {
         </div>
 
         {/* Карточки */}
-        <div ref={cardsRef} className="grid sm:grid-cols-2 gap-5 lg:gap-7">
+        <div ref={cardsRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-7">
           {audiences.map((item) => (
             <div key={item.title} className="relative rounded-2xl p-7 lg:p-9 overflow-hidden group"
               style={{
